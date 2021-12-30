@@ -1,5 +1,6 @@
 # ./app/schema.py
 
+from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
 from pydantic import EmailStr
@@ -10,9 +11,14 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    first_name: str
-    last_name: str
     password: str
+
+
+class CurrentUser(UserBase):
+    id: int
+
+    class Config:
+        orm_mode = True
 
 
 class TodoCreate(BaseModel):
@@ -20,8 +26,13 @@ class TodoCreate(BaseModel):
     completed: bool
 
 
-class TodoUpdate(TodoCreate):
-    pass
+class TodoOut(TodoCreate):
+    id: int
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
+    
 
 class Token(BaseModel):
     access_token: str

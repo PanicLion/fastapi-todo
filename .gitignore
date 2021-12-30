@@ -1,3 +1,5 @@
 __pycache__
 venv/
 todo_app.db
+.env
+.mypy_cache
